@@ -3,11 +3,7 @@ package nassau.restaurant.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import nassau.restaurant.dto.PedidoDTO;
 import nassau.restaurant.model.Pedido;
@@ -28,5 +24,15 @@ public class PedidoController {
     @PostMapping
     public Pedido criar(@RequestBody PedidoDTO dto) {
         return service.salvar(dto);
+    }
+
+    @PutMapping("/{id}")
+    public Pedido atualizar(@PathVariable Long id, @RequestBody PedidoDTO dto) {
+        return service.atualizar(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable Long id) {
+        service.deletar(id);
     }
 }

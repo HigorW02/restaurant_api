@@ -41,6 +41,23 @@ public class PedidoService {
 
     public Pedido salvar(PedidoDTO dto) {
         Pedido pedido = new Pedido();
+        return preencherPedidoComDTO(pedido, dto);
+    }
+
+    public Pedido atualizar(Long id, PedidoDTO dto) {
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+        return preencherPedidoComDTO(pedido, dto);
+    }
+
+    public void deletar(Long id) {
+        if (!pedidoRepository.existsById(id)) {
+            throw new RuntimeException("Pedido não encontrado");
+        }
+        pedidoRepository.deleteById(id);
+    }
+
+    private Pedido preencherPedidoComDTO(Pedido pedido, PedidoDTO dto) {
         pedido.setDataPedido(dto.getDataPedido());
         pedido.setTimePedido(dto.getTimePedido());
 

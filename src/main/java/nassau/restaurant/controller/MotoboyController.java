@@ -3,11 +3,7 @@ package nassau.restaurant.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import nassau.restaurant.dto.MotoboyDTO;
 import nassau.restaurant.model.Motoboy;
@@ -17,7 +13,7 @@ import nassau.restaurant.service.MotoboyService;
 @RequestMapping("/motoboy")
 public class MotoboyController {
     
-   @Autowired
+    @Autowired
     private MotoboyService service; 
 
     @GetMapping
@@ -28,5 +24,15 @@ public class MotoboyController {
     @PostMapping
     public Motoboy criar(@RequestBody MotoboyDTO dto) {
         return service.salvar(dto);
+    }
+
+    @PutMapping("/{id}")
+    public Motoboy atualizar(@PathVariable Long id, @RequestBody MotoboyDTO dto) {
+        return service.atualizar(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable Long id) {
+        service.deletar(id);
     }
 }
